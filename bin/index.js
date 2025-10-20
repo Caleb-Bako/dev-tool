@@ -19,10 +19,10 @@ const questionsPrompt = [
 ];
 
 function main() {
-  exitHouse();
+  createFolders();
 }
 
-function exitHouse() {
+function createFolders() {
   inquirer.prompt(questionsPrompt).then((answers) => {
     if (answers.direction === "VanillaJS") {
       createMainFolders(__dirname);
