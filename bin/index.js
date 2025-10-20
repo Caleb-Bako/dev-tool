@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 import inquirer from "inquirer"
-import path from "path";
-import { createMainFolders, createParentFolder, createSubfolderFiles } from "../src/setup.js";
+import { createMainFolders, createSubfolderFiles } from "../src/setup.js";
 
 const __dirname = process.cwd();
 
@@ -9,7 +8,7 @@ const questionsPrompt = [
   {
     type: "input",
     name: "folder",
-    message: "Input Folder Name >>> ",
+    message: "Input App Name >>> ",
   },
   {
     type: "list",
@@ -25,15 +24,12 @@ function main() {
 
 function exitHouse() {
   inquirer.prompt(questionsPrompt).then((answers) => {
-    let dirPath = path.join(__dirname, answers.folder);
-    createParentFolder(dirPath).then(()=>{
-        if (answers.direction === "VanillaJS") {
-          createMainFolders(dirPath);
-          createSubfolderFiles(dirPath);
-        } else {
-          console.log("Option not available");
-        }
-    });
+    if (answers.direction === "VanillaJS") {
+      createMainFolders(__dirname);
+      createSubfolderFiles(__dirname);
+    } else {
+      console.log("Option not available");
+    }
 
   });
 }

@@ -27,17 +27,6 @@ export async function createSubfolderFiles(dirPath) {
   console.log("Done Creating...");
 }
 
-export async function createParentFolder(dirPath) {
-  try {
-    console.log("Creating Folder...");
-    await fs.mkdir(dirPath);
-  } catch (err) {
-    if (err.code === "EEXIST") {
-      console.log("Folder already exists. Skipping...");
-    } else {
-      console.error("Error creating folder:", err);
-    }
-  }
-}
+
 
 
