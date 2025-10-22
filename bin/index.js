@@ -1,6 +1,11 @@
 #!/usr/bin/env node
-import inquirer from "inquirer"
-import { createMainFolders, createSubfolderFiles } from "../src/setup.js";
+import inquirer from "inquirer";
+import path from "path";
+import {
+  createMainFolders,
+  createParentFolder,
+  createSubfolderFiles,
+} from "../src/setup.js";
 
 const __dirname = process.cwd();
 
@@ -24,15 +29,16 @@ function main() {
 
 function createFolders() {
   inquirer.prompt(questionsPrompt).then((answers) => {
-    if (answers.direction === "VanillaJS") {
-      createMainFolders(__dirname);
-      createSubfolderFiles(__dirname);
-    } else {
-      console.log("Option not available");
-    }
-
+    let dirPath = path.join(__dirname, answers.folder);
+    createParentFolder(dirPath).then(() => {
+      if (answers.direction === "VanillaJS") {
+        createMainFolders(dirPath);
+        createSubfolderFiles(dirPath);
+      } else {
+        console.log("Option not available");
+      }
+    });
   });
 }
-
 
 main();
